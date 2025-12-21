@@ -40,3 +40,4 @@
 /home/vmadmin/M346_Projekt/ImageAnalysLambda/src/ImageAnalysLambda/obj/Release/net8.0/linux-x64/ImageAnalysLambda.pdb
 /home/vmadmin/M346_Projekt/ImageAnalysLambda/src/ImageAnalysLambda/obj/Release/net8.0/linux-x64/ImageAnalysLambda.genruntimeconfig.cache
 /home/vmadmin/M346_Projekt/ImageAnalysLambda/src/ImageAnalysLambda/obj/Release/net8.0/linux-x64/ref/ImageAnalysLambda.dll
+/home/vmadmin/M346_Projekt/ImageAnalysLambda/src/ImageAnalysLambda/obj/Release/net8.0/linux-x64/ImageAnalysLambda.sourcelink.json
