@@ -20,7 +20,7 @@ INPUT_BUCKET="${INPUT_BUCKET:-face-bucket-in-$SUFFIX}"
 OUTPUT_BUCKET="${OUTPUT_BUCKET:-face-bucket-out-$SUFFIX}"
 
 # Lambda-Projektpfad repo-relativ
-PROJECT_DIR="$REPO_ROOT/M346_Projekt/ImageAnalysLambda/src/ImageAnalysLambda"
+PROJECT_DIR="$REPO_ROOT/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda"
 
 # Env-Datei für test.sh
 ENV_FILE="$REPO_ROOT/.env"
