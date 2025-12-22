@@ -108,4 +108,4 @@ Am Schluss erscheint eine Zusammenfassung des init.sh mit:
 - Lambda Name
 - Lambda ARN
 
-## Verwendung / Test ##
+## Verwendung / Tests ##
