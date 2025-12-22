@@ -1,3 +1,9 @@
+/*
+Projekt: M346 Image Analys Lambda
+Datei: Function.cs
+Autor: Semir Dehari, Luis Strunk, Lionel Gähwiler
+Datum: 22.12.2025
+*/
 using System;
 using System.IO;
 using System.Text.Json;
@@ -8,35 +14,30 @@ using Amazon.Rekognition;
 using Amazon.Rekognition.Model;
 using Amazon.S3;
 
-// Damit Lambda das Event korrekt serialisiert / deserialisiert:
+// Gibt an, welcher JSON-Serializer für die Lambda verwendet wird
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
 namespace ImageAnalysLambda;
 
 /// <summary>
-/// Lambda-Funktion für die Erkennung bekannter Persönlichkeiten auf Bildern,
-/// die in einen S3-Input-Bucket hochgeladen werden.
-/// 
-/// Ablauf:
-/// 1. S3-Event löst Lambda aus, wenn ein neues Objekt hochgeladen wird.
-/// 2. Rekognition (RecognizeCelebrities) wird aufgerufen.
-/// 3. Ergebnis wird als JSON-Datei in einen Output-Bucket geschrieben.
-/// 
-/// Wichtige Voraussetzung:
-/// - Environment Variable "O_BUCKET" muss auf den Namen des Out-Buckets gesetzt sein.
-///   (z.B. im Init-Script beim Deploy)
+/// Hauptklasse der Lambda-Funktion.
+/// Diese Klasse wird von AWS Lambda instanziert.
 /// </summary>
 public class Function
 {
+    // Client für AWS Rekognition (Personenerkennung)
     private readonly IAmazonRekognition _rekClient;
+
+    // Client für AWS S3 (lesen & schreiben von Dateien)
     private readonly IAmazonS3 _s3Client;
 
-    // Output-Bucket-Name aus Umgebungsvariable
+    // Name des Output-Buckets (aus Environment Variable)
     private readonly string _oBucket;
 
     /// <summary>
-    /// Standard-Konstruktor: wird von AWS Lambda verwendet.
-    /// Erstellt Clients mit Default-Credentials (aus IAM-Rolle).
+    /// Standard-Konstruktor.
+    /// Wird von AWS Lambda verwendet.
+    /// Erstellt automatisch die AWS Clients.
     /// </summary>
     public Function()
         : this(new AmazonRekognitionClient(), new AmazonS3Client())
@@ -44,41 +45,47 @@ public class Function
     }
 
     /// <summary>
-    /// Konstruktor für Tests / Dependency Injection.
+    /// Konstruktor mit Dependency Injection.
     /// </summary>
     public Function(IAmazonRekognition rekognitionClient, IAmazonS3 s3Client)
     {
         _rekClient = rekognitionClient;
         _s3Client = s3Client;
+
+        // Liest den Namen des Output-Buckets aus der Environment Variable
         _oBucket = Environment.GetEnvironmentVariable("O_BUCKET") ?? string.Empty;
     }
 
     /// <summary>
     /// Haupteinstiegspunkt der Lambda-Funktion.
-    /// Wird automatisch aufgerufen, wenn ein neues Objekt in den
-    /// konfigurierten S3-Input-Bucket hochgeladen wird.
+    /// Wird automatisch ausgelöst, wenn ein Objekt in den Input-S3-Bucket hochgeladen wird.
     /// </summary>
     /// <param name="s3Event">Das S3-Event mit Informationen zum hochgeladenen Objekt.</param>
-    /// <param name="context">Lambda-Kontext (für Logging etc.).</param>
+    /// <param name="context">Lambda-Kontext (Logging, Request-ID, etc.).</param>
     public async Task FunctionHandler(S3Event s3Event, ILambdaContext context)
     {
+        // Sicherheitsprüfung: Output-Bucket muss gesetzt sein
         if (string.IsNullOrWhiteSpace(_oBucket))
         {
             context.Logger.LogError("Environment variable O_BUCKET is not set. Aborting.");
             return;
         }
 
-        // Ein Event kann mehrere Records enthalten (Batch).
+        // Verarbeitung aller S3-Event-Einträge (meist nur einer)
         foreach (var record in s3Event.Records)
         {
+            // Name des Input-Buckets
             var bucketName = record.S3.Bucket.Name;
+
+            // Dateiname des hochgeladenen Bildes
             var objectKey = record.S3.Object.Key;
 
             context.Logger.LogInformation($"New image received: Bucket={bucketName}, Key={objectKey}");
 
             try
             {
-                // 1. Rekognition für Celebrity-Erkennung aufrufen
+                // Rekognition-Request vorbereiten
+                // Das Bild liegt in einem S3-Bucket
                 var request = new RecognizeCelebritiesRequest
                 {
                     Image = new Image
@@ -91,39 +98,51 @@ public class Function
                     }
                 };
 
+                // AWS Rekognition aufrufen (Prominenten-Erkennung)
                 var response = await _rekClient.RecognizeCelebritiesAsync(request);
 
-                // 2. Ergebnis auf ein einfaches, gut lesbares Objekt mappen
+                // Ergebnisobjekt zusammenstellen
                 var result = new
                 {
+                    // Infos zum analysierten Bild
                     SourceImage = new
                     {
                         Bucket = bucketName,
                         Key = objectKey
                     },
+
+                    // Liste erkannter Prominenter
                     Celebrities = response.CelebrityFaces.ConvertAll(c => new
                     {
-                        c.Name,
-                        c.MatchConfidence,
-                        c.Id,
-                        Urls = c.Urls,     // Links zu Infos über die erkannte Person
+                        c.Name,                 // Name der Person
+                        c.MatchConfidence,      // Erkennungswahrscheinlichkeit
+                        c.Id,                   // Rekognition-ID
+                        Urls = c.Urls,          // Referenz-URLs     
                     }),
+
+                    // Anzahl nicht erkannter Gesichter
                     UnrecognizedFaces = response.UnrecognizedFaces.Count,
+
+                    // Bildausrichtung (z. B. gedreht)
                     OrientationCorrection = response.OrientationCorrection,
+
+                    // Zeitpunkt der Verarbeitung
                     ProcessedAtUtc = DateTime.UtcNow
                 };
 
-                // 3. JSON formatieren
+                // Ergebnis als formatiertes JSON serialisieren
                 var json = JsonSerializer.Serialize(
                     result,
                     new JsonSerializerOptions { WriteIndented = true }
                 );
 
-                // 4. Dateinamen für das Ergebnis bestimmen (gleicher Name, aber .json)
+                // Dateiname ohne Endung ermitteln
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(objectKey);
+
+                // JSON-Dateiname erzeugen
                 var outputKey = $"{fileNameWithoutExtension}.json";
 
-                // 5. JSON in den Output-Bucket schreiben
+                // JSON-Ergebnis in den Output-Bucket schreiben
                 await _s3Client.PutObjectAsync(new Amazon.S3.Model.PutObjectRequest
                 {
                     BucketName = _oBucket,
@@ -137,7 +156,7 @@ public class Function
             }
             catch (Exception ex)
             {
-                // Fehler werden geloggt, Lambda soll aber nicht komplett abstürzen
+                // Fehlerbehandlung: Fehler wird geloggt, Lambda stürzt nicht komplett ab
                 context.Logger.LogError($"Error processing object {bucketName}/{objectKey}: {ex}");
             }
         }
