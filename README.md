@@ -73,7 +73,39 @@ aws configure
 - **jq**, nur für schön formatierte Ausgabe
 
 ## Installation / Inbetriebnahme
-1. GIT Repository clonen
+**1. GIT Repository clonen**
 ```
 git clone https://github.com/LGaehwiler/M346LSL.git
+cd M346LSL
 ```
+Bitte beachten Sie, dass für die Ausführung des Projekts die AWS CLI installiert ```aws configure``` sein muss. Zusätzlich wird das .NET SDK in der Version 8.0 benötigt, damit das Lambda‑Projekt korrekt gebaut und deployt werden kann. Ausserdem sollten die Amazon.Lambda.Tools installiert sein, was normalerweise über den Befehl ```dotnet tool install -g Amazon.Lambda.Tools``` erfolgt. Falls dieses Tool noch nicht vorhanden ist, wird es automatisch durch das Skript init.sh installiert. Für eine übersichtliche und formattierte Darstellung von JSON‑Ausgaben wird ausserdem empfohlen, das Tool jq zu installieren.
+
+**2. Skripte ausführbar machen**
+```
+chmod +x init.sh
+chmod +x test.sh
+```
+
+**3. Initialisierung starten**
+```
+./init.sh
+```
+
+Beim init.sh passiert genau folgendes:
+- Voraussetzungen prüfen und Tools installieren
+- AWS Region konfigurieren
+- S3 Buckets erstellen
+- Lambda Funktion deployen
+- Berechtigung für S3 setzen
+- S3 Trigger einrichten
+- .env Datei erstellen
+
+Am Schluss erscheint eine Zusammenfassung des init.sh mit:
+- Speicherort der .env Datei
+- Der Region
+- Der Name des Input Bucket
+- Der Name des Output Bucket
+- Lambda Name
+- Lambda ARN
+
+## Verwendung / Test ##
