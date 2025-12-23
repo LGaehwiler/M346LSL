@@ -138,7 +138,7 @@ Beim test.sh passiert genau folgendes:
 7. Gibt die erkannte Person aus
 
 ## Ergebnis / Output ##
-**Test Nummer 1 (Default-Bild):**
+### Test 1 (Default-Bild):
 ```
 {
   "SourceImage": {
@@ -171,7 +171,10 @@ T1: Trump.jpg --> "Donald Trump" ekrannt
 **Uhrzeit:** 08:30 - 08:35 Uhr  
 **System:** Linux Ubuntu VM
 
-**Test Nummer 2 (eigenes Bild):**
+### Fazit vom Test 1
+Der erste Test wurde erfolgreich durchgeführt. Die hochgeladene Bilddatei wurde korrekt von der AWS Lambda Funktion verarbeitet und an den AWS Rekognition Service übergeben. AWS Rekognition erkannte die bekannte Person "Donald Trump" und lieferte eine hohe Wahrscheinlichkeit von 99.99568 %.
+
+### Test 2 (eigenes Bild):
 ```
 {
   "SourceImage": {
@@ -203,3 +206,13 @@ T2: Ronaldo.jpg --> "Cristiano Ronaldo" erkannt
 **Datum:** 23.12.2025  
 **Uhrzeit:** 08:30 - 08:35 Uhr  
 **System:** Linux Ubuntu VM
+
+### Fazit vom Test 2
+Der zweite Test wurde erfolgreich durchgeführt. Die hochgeladene Bilddatei wurde korrekt von der AWS Lambda Funktion verarbeitet und an den AWS Rekognition Service übergeben. AWS Rekognition erkannte die bekannte Person "Cristiano Ronaldo" und lieferte eine hohe Wahrscheinlichkeit von 99.99505 %.
+
+## Reflexion
+**Semir:**  
+Wir hatten den Auftrag einen Cloud basierten Face Rekognition Service zu wentwickeln, der mithilfe von AWS S3 Buckets, Lambda Funktio und Rekognition bekannte Persönlichkeiten auf hochgeladenen Bildern automatisch erkennt und die Ergebnisse als JSON-Datei speichert. 
+Am Anfach hatten wir Schwiriegkeiten das Projekt zu verstehen, also was genau wir machen müssen. Wir haben andere Teams gefragt und auch unseren Lehrer ob sie uns dieses Proejekt genauer erklären können. Als wir hilfe von anderen Schüler und dem Lehrer gekriegt haben, habe ich das Projekt genau verstanden. Luis und Lionel, haben das Projekt immer noch nicht so gut verstanden, also haben sie sich mehr auf ein anderes Projekt fokussiert (M254 Marcel) und ich mich auf das Cloud Projekt. 
+
+**Lionel:**
