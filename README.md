@@ -1,4 +1,5 @@
 # Projekt M346
+Repository: https://github.com/LGaehwiler/M346LSL
 ## Projektübersicht
 ### Ziele
 - Bereitstellung eines FaceRecognition-Services mit AWS Rekognition (Celebrity Recognition)
