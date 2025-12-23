@@ -18,7 +18,7 @@ source "$ENV_FILE"
 # ========================================
 # Testbild
 # ========================================
-DEFAULT_IMAGE="$REPO_ROOT/Pictures/Trump.jpeg"
+DEFAULT_IMAGE="$REPO_ROOT/M346LSL/test/Trump.jpg"
 IMAGE_PATH="${1:-$DEFAULT_IMAGE}"
 
 if [ ! -f "$IMAGE_PATH" ]; then
