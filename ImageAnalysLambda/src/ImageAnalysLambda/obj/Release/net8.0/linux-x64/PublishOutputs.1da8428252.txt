@@ -1,0 +1,10 @@
+/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/bin/Release/net8.0/publish/ImageAnalysLambda.deps.json
+/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/bin/Release/net8.0/publish/ImageAnalysLambda.runtimeconfig.json
+/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/bin/Release/net8.0/publish/ImageAnalysLambda.pdb
+/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/bin/Release/net8.0/publish/Amazon.Lambda.Core.dll
+/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/bin/Release/net8.0/publish/Amazon.Lambda.S3Events.dll
+/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/bin/Release/net8.0/publish/Amazon.Lambda.Serialization.SystemTextJson.dll
+/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/bin/Release/net8.0/publish/AWSSDK.Core.dll
+/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/bin/Release/net8.0/publish/AWSSDK.Rekognition.dll
+/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/bin/Release/net8.0/publish/AWSSDK.S3.dll
+/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/bin/Release/net8.0/publish/ImageAnalysLambda.dll

@@ -332,11 +332,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/vmadmin/M346_Projekt/ImageAnalysLambda/src/ImageAnalysLambda/ImageAnalysLambda.csproj",
+      "projectUniqueName": "/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/ImageAnalysLambda.csproj",
       "projectName": "ImageAnalysLambda",
-      "projectPath": "/home/vmadmin/M346_Projekt/ImageAnalysLambda/src/ImageAnalysLambda/ImageAnalysLambda.csproj",
+      "projectPath": "/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/ImageAnalysLambda.csproj",
       "packagesPath": "/home/vmadmin/.nuget/packages/",
-      "outputPath": "/home/vmadmin/M346_Projekt/ImageAnalysLambda/src/ImageAnalysLambda/obj/",
+      "outputPath": "/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/vmadmin/.nuget/NuGet/NuGet.Config"

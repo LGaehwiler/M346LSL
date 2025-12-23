@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ImageAnalysLambda")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82a0d3ad5f607355cbeb8979d23043c85f0cacfa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fd81660d40814e483a0f5a1f931ba9d6598cce64")]
 [assembly: System.Reflection.AssemblyProductAttribute("ImageAnalysLambda")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ImageAnalysLambda")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

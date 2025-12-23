@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+/Cst9kZNiBo8CBOmGRnS6MSygjxvbHbD+2q7XJAhxLiCyDVRygnpqOD2ic3DbeDr9xqW4P8R0iKzIxcSKQToA==",
+  "dgSpecHash": "R8p/jP5Ep/H8wHDwGpNmiVgT8AQpIKPdzhBPtUiMHt9/xEXio1K/ttptsQOtyHSllI3yTASjdANTa4C3CQ2z3Q==",
   "success": true,
-  "projectFilePath": "/home/vmadmin/M346_Projekt/ImageAnalysLambda/src/ImageAnalysLambda/ImageAnalysLambda.csproj",
+  "projectFilePath": "/home/vmadmin/M346LSL/ImageAnalysLambda/src/ImageAnalysLambda/ImageAnalysLambda.csproj",
   "expectedPackageFiles": [
     "/home/vmadmin/.nuget/packages/amazon.lambda.core/2.7.0/amazon.lambda.core.2.7.0.nupkg.sha512",
     "/home/vmadmin/.nuget/packages/amazon.lambda.s3events/3.1.0/amazon.lambda.s3events.3.1.0.nupkg.sha512",
