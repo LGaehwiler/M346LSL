@@ -62,7 +62,7 @@ Diese Punkte (Packages) müssen in Visual Studio Code installiert werden
 - using Amazon.Rekognition.Model;
 - using Amazon.S3;
 
-### AWS CLI
+### AWS Voraussetzungen
 - AWS Account
 - Konfiguriertes AWS CLI Profil:
 ```bash
@@ -76,6 +76,7 @@ aws configure
 ### Benötigte Software
 - **.NET SDK 8.0**
 - **jq**, nur für schön formatierte Ausgabe
+- **AWS CLI**
 
 
 ## Installation / Inbetriebnahme
